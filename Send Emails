@@ -1,0 +1,28 @@
+#!/bin/python3
+
+from email.mime.text import MIMEText
+import smtplib
+from email.message import EmailMessage
+
+def send(reciever, sender, password, message):
+    email_message = message
+      
+    email = EmailMessage()
+    email["from"] = sender
+    email["to"] = reciever
+    email["subject"] = "Subject"
+    email.set_content(email_message)
+    with smtplib.SMTP(host="smtp.office365.com", port=587) as smtp:
+        smtp.ehlo()
+        smtp.starttls()
+        smtp.login(sender, password)
+        smtp.send_message(email)
+
+email_sender = "YOUR EMAIL HERE"
+email_password = "Your password"
+message = """https://www.youtube.com/watch?v=zf4ZiJPsU3w"""
+#Lists of emails to email
+emails = ["RECIPIENT@outlook.com", "RECIPIENT@gmail.com"] 
+
+for rec in emails: 
+    send(rec, email_sender, email_password, message)
